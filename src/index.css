@@ -1,0 +1,389 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  
+  /* Nord Color Palette */
+  --nord0: #2e3440;  /* Dark background */
+  --nord1: #3b4252;  /* Darker background */
+  --nord2: #434c5e;  /* Selection background */
+  --nord3: #4c566a;  /* Comments, invisibles */
+  --nord4: #d8dee9;  /* Dark foreground */
+  --nord5: #e5e9f0;  /* Foreground */
+  --nord6: #eceff4;  /* Light foreground */
+  --nord7: #8fbcbb;  /* Frost */
+  --nord8: #88c0d0;  /* Frost */
+  --nord9: #81a1c1;  /* Frost */
+  --nord10: #5e81ac; /* Frost */
+  --nord11: #bf616a; /* Red */
+  --nord12: #d08770; /* Orange */
+  --nord13: #ebcb8b; /* Yellow */
+  --nord14: #a3be8c; /* Green */
+  --nord15: #b48ead; /* Purple */
+  
+  /* Terminal Colors */
+  --terminal-bg: var(--nord0);
+  --terminal-fg: var(--nord5);
+  --terminal-accent: var(--nord8);
+  --terminal-success: var(--nord14);
+  --terminal-error: var(--nord11);
+  --terminal-warning: var(--nord13);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--terminal-bg);
+  color: var(--terminal-fg);
+  overflow-x: hidden;
+}
+
+/* High Contrast Mode */
+.high-contrast {
+  --terminal-bg: #000000;
+  --terminal-fg: #ffffff;
+  --terminal-accent: #00ffff;
+  --nord1: #1a1a1a;
+  --nord3: #666666;
+  --nord4: #cccccc;
+}
+
+/* Terminal Glow Effects */
+.terminal-glow {
+  box-shadow: 
+    0 0 20px rgba(136, 192, 208, 0.1),
+    inset 0 0 20px rgba(136, 192, 208, 0.05);
+}
+
+.terminal-text-glow {
+  text-shadow: 0 0 10px rgba(136, 192, 208, 0.3);
+}
+
+.text-glow {
+  text-shadow: 0 0 8px currentColor;
+}
+
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(46, 52, 64, 0.8);
+  border: 1px solid rgba(136, 192, 208, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--nord1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--nord3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nord8);
+}
+
+/* Animations */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px currentColor; }
+  50% { box-shadow: 0 0 20px currentColor; }
+}
+
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--terminal-accent);
+  animation: typing 2s steps(40, end), blink 1s step-end infinite;
+}
+
+.cursor::after {
+  content: '▋';
+  animation: blink 1s step-end infinite;
+  color: var(--terminal-accent);
+}
+
+.matrix-char {
+  animation: matrix-rain 3s linear infinite;
+  color: var(--terminal-success);
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Terminal Window Effect */
+.terminal-window {
+  background: var(--terminal-bg);
+  border: 1px solid var(--nord3);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.terminal-header {
+  background: var(--nord1);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--nord3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.terminal-dot:hover {
+  opacity: 0.8;
+}
+
+.terminal-dot.close { background: var(--nord11); }
+.terminal-dot.minimize { background: var(--nord13); }
+.terminal-dot.maximize { background: var(--nord14); }
+
+/* ASCII Art */
+.ascii-art {
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+  white-space: pre;
+  color: var(--terminal-accent);
+  text-shadow: 0 0 10px rgba(136, 192, 208, 0.3);
+}
+
+/* Command Line Styles */
+.command-line {
+  border-top: 1px solid var(--nord3);
+  background: var(--nord1);
+  padding: 12px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.command-prompt::before {
+  content: '➜ ';
+  color: var(--terminal-accent);
+  font-weight: bold;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: rgba(67, 76, 94, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(136, 192, 208, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(67, 76, 94, 0.4);
+  border-color: rgba(136, 192, 208, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Boot sequence styles */
+.boot-line {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Project file styles */
+.file-icon {
+  color: var(--terminal-accent);
+}
+
+.file-executable {
+  color: var(--terminal-success);
+}
+
+.file-directory {
+  color: var(--nord9);
+  font-weight: bold;
+}
+
+/* Loading animations */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--terminal-accent);
+  outline-offset: 2px;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--terminal-accent);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(136, 192, 208, 0.3);
+  color: var(--terminal-fg);
+}
+
+/* Print styles */
+@media print {
+  .terminal-window {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+  
+  .terminal-header {
+    background: #f0f0f0;
+    color: #000;
+  }
+  
+  .glass-card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .ascii-art {
+    font-size: 0.6rem;
+  }
+  
+  .terminal-window {
+    margin: 0 -1rem;
+    border-radius: 0;
+  }
+  
+  .glass-card {
+    padding: 16px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Markdown content styling */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--nord1);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.markdown-content code {
+  background: var(--nord3);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
